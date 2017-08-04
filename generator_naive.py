@@ -31,8 +31,7 @@ for row in cursor.fetchall():
 
 cursor.close()
 cnxn.close()
-# subset
-title = title[0:len(title)]
+
 # join title strings
 title_str = '\n'.join(title)
 # make white list
