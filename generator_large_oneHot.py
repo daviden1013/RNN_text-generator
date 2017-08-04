@@ -1,8 +1,3 @@
-'''
-Created on Aug 3, 2017
-
-@author: david_000
-'''
 
 import numpy as np
 import pyodbc
@@ -17,12 +12,12 @@ from keras.models import load_model
 # load data
 conn_str = (
             r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
-            r'DBQ=C:\Users\david_000\AppData\Local\Programs\Python\Python35\Scripts\tutorial\reddit.accdb;' 
+            r'DBQ=C:\Users\username\reddit.accdb;' 
         )
 cnxn = pyodbc.connect(conn_str)
 cursor = cnxn.cursor()
 
-SQL = "SELECT title FROM LPT WHERE haha LIKE '%201701%'"
+SQL = "SELECT title FROM LPT WHERE datetime LIKE '%201701%'"
 cursor.execute(SQL)
 
 title = []
@@ -31,12 +26,11 @@ for row in cursor.fetchall():
 
 cursor.close()
 cnxn.close()
-# subset
-title = title[0:len(title)]
+
 # join title strings
 title_str = '\n'.join(title)
 # make white list
-white_list = "\n abcdefghijklmnopqrstuvwxyz,.:;?'¡¦*-" + '"'
+white_list = "\n abcdefghijklmnopqrstuvwxyz,.:;?'Â¡Â¦*-" + '"'
 # convert title strings to lower case
 title_str = title_str.lower()
 # remove chars not in white list
@@ -79,9 +73,6 @@ checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only
 callbacks_list = [checkpoint]
 # fit the model
 model.fit(x, y, epochs=60, batch_size=50, callbacks=callbacks_list)
-
-
-# model = load_model("LPT-09-1.3361.hdf5")
 
 '''
  Generate text
