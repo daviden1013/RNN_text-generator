@@ -1,8 +1,3 @@
-'''
-Created on Jul 31, 2017
-
-@author: david_000
-'''
 
 import numpy as np
 import pyodbc
